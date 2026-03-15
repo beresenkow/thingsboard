@@ -356,7 +356,9 @@ export class DatasourcesComponent implements ControlValueAccessor, OnInit, Valid
       newDatasource.dataKeys = [this.dataKeysCallbacks.generateDataKey('Sin', DataKeyType.function, this.dataKeySettingsForm,
         false, this.dataKeySettingsFunction)];
     } else {
-      const type = this.basicMode ? this.datasourcesMode : DatasourceType.entity;
+      //const type = this.basicMode ? this.datasourcesMode : DatasourceType.entity;
+      // change default value allways to devices
+      const type = this.basicMode ? this.datasourcesMode : DatasourceType.device;
       newDatasource = { type,
         dataKeys: []
       };
