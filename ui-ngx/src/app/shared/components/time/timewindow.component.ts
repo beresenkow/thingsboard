@@ -380,8 +380,15 @@ export class TimewindowComponent implements ControlValueAccessor, OnInit, OnChan
       } else if (this.innerValue.history.historyType === HistoryWindowType.FOR_ALL_TIME) {
         this.innerValue.displayValue += this.translate.instant('timewindow.for-all-time');
       } else {
+        /*
         const startString = this.datePipe.transform(this.innerValue.history.fixedTimewindow.startTimeMs, 'yyyy-MM-dd HH:mm:ss');
         const endString = this.datePipe.transform(this.innerValue.history.fixedTimewindow.endTimeMs, 'yyyy-MM-dd HH:mm:ss');
+        */
+
+        // Change date fromats to german date formats
+        const startString = this.datePipe.transform(this.innerValue.history.fixedTimewindow.startTimeMs, 'dd.MM.yyyy HH:mm:ss');
+        const endString = this.datePipe.transform(this.innerValue.history.fixedTimewindow.endTimeMs, 'dd.MM.yyyy HH:mm:ss');
+
         this.innerValue.displayValue += this.translate.instant('timewindow.period', {startTime: startString, endTime: endString});
       }
     }

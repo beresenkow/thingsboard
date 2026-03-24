@@ -135,7 +135,9 @@ export class DateEntityTableColumn<T extends BaseData<HasId>> extends EntityTabl
               title: string,
               datePipe: DatePipe,
               width: string = '0px',
-              dateFormat: string = 'yyyy-MM-dd HH:mm:ss',
+              //dateFormat: string = 'yyyy-MM-dd HH:mm:ss',
+              // Change date fromat to german date format
+              dateFormat: string = 'dd.MM.yyyy HH:mm:ss',
               cellStyleFunction: CellStyleFunction<T> = () => ({})) {
     super(key,
           title,

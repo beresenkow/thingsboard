@@ -30,7 +30,9 @@ export class DateExpirationPipe implements PipeTransform {
 
   transform(expirationMs: number, arg?: any): string {
     const displayDate = isDefined(arg?.displayDate) ? arg.displayDate : true;
-    const dateFormat = isDefined(arg?.dateFormat) ? arg.dateFormat : ' (dd/MM/yyyy)';
+    //const dateFormat = isDefined(arg?.dateFormat) ? arg.dateFormat : ' (dd/MM/yyyy)';
+    // Change date fromat to german date format
+    const dateFormat = isDefined(arg?.dateFormat) ? arg.dateFormat : ' (dd.MM.yyyy)';
     const shortFormat = isDefined(arg?.shortFormat) ? arg.shortFormat : true;
     const onlyFirstDigit = isDefined(arg?.onlyFirstDigit) ? arg.onlyFirstDigit : true;
     let time = this.millisecondsToTimeString.transform(expirationMs, shortFormat, onlyFirstDigit);
