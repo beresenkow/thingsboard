@@ -82,6 +82,7 @@ export const resolveBreakpoint = (breakpoint: string): string => {
 };
 
 export const helpBaseUrl = 'https://thingsboard.io';
+export const otherHelpBaseUrl = 'https://support.netwake.com';
 
 export const docPlatformPrefix = '';
 
@@ -187,13 +188,13 @@ export const HelpLinks = {
     rulechains: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/rule-chains`,
     lwm2mResourceLibrary: `${helpBaseUrl}/docs${docPlatformPrefix}/reference/lwm2m-api`,
     jsExtension: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/contribution/ui/advanced-development`,
-    dashboards: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/dashboards`,
+    dashboards: `${otherHelpBaseUrl}/t/dashboard-die-graphische-uebersicht-fuer-manager/1230`,
     otaUpdates: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ota-updates`,
     widgetTypes: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/widget-library/#widget-types`,
     widgetsBundles: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/widget-library/#widgets-library-bundles`,
     widgetsConfig:  `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/widget-library`,
-    widgetsConfigTimeseries:  `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/widget-library#time-series`,
-    widgetsConfigLatest: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/widget-library#latest-values`,
+    widgetsConfigTimeseries: `${otherHelpBaseUrl}/t/dashboard-die-graphische-uebersicht-fuer-manager/1230`,
+    widgetsConfigLatest: `${otherHelpBaseUrl}/t/dashboard-die-graphische-uebersicht-fuer-manager/1230`,
     widgetsConfigRpc: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/widget-library#control-widget`,
     widgetsConfigAlarm: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/widget-library#alarm-widget`,
     widgetsConfigStatic: `${helpBaseUrl}/docs${docPlatformPrefix}/user-guide/ui/widget-library#static`,
