@@ -9649,7 +9649,7 @@
             "total": "Total",
             "auto-scale": "Auto scale",
             "clockwise-layout": "Clockwise layout",
-            "sort-series": "Sort series by label",
+            "sort-series": "Sort attributes by label",
             "tooltip-value-type-absolute": "Absolute",
             "tooltip-value-type-percentage": "Percentage"
         },

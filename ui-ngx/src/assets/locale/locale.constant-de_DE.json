@@ -9639,7 +9639,7 @@
       "total": "Gesamt",
       "auto-scale": "Automatische Skalierung",
       "clockwise-layout": "Uhrzeigerlayout",
-      "sort-series": "Serien nach Bezeichnung sortieren",
+      "sort-series": "Attribute nach Bezeichnung sortieren",
       "tooltip-value-type-absolute": "Absolut",
       "tooltip-value-type-percentage": "Prozentual"
     },
