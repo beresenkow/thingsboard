@@ -24,6 +24,7 @@ import lombok.Data;
 import org.thingsboard.server.common.data.alarm.rule.condition.expression.predicate.ComplexFilterPredicate;
 import org.thingsboard.server.common.data.alarm.rule.condition.expression.predicate.FilterPredicateType;
 import org.thingsboard.server.common.data.alarm.rule.condition.expression.predicate.KeyFilterPredicate;
+import org.thingsboard.server.common.data.query.ComplexOperation;
 import org.thingsboard.server.common.data.query.EntityKeyValueType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,7 +32,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
 import java.util.List;
 
-@Schema(name = "AlarmRuleConditionFilter")
+@Schema
 @Data
 public class AlarmConditionFilter implements Serializable {
 

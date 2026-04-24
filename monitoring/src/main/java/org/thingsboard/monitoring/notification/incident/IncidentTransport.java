@@ -13,9 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.thingsboard.server.common.data.alarm.rule.condition.expression;
+package org.thingsboard.monitoring.notification.incident;
 
-public enum ComplexOperation {
-    AND,
-    OR
+public interface IncidentTransport {
+
+    String postIncident(String text);
+
+    void postThreadReply(String threadId, String text);
+
+    void updateIncident(String threadId, String text);
+
 }

@@ -13,16 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-:host {
-  .tb-editable-switch {
-    padding-left: 10px;
+package org.thingsboard.monitoring.data.notification;
 
-    .editable-switch {
-      margin: 0;
-    }
+public interface ShortNameProvider {
 
-    .editable-label {
-      margin: 5px 0;
-    }
-  }
+    String getShortName();
+
 }
