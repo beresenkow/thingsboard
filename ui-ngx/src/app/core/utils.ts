@@ -160,7 +160,9 @@ export const formatValue = (value: any, dec?: number, units?: string, showZeroDe
     if (!showZeroDecimals) {
       formatted = (Number(formatted));
     }
-    formatted = formatted.toString();
+    // formatted = formatted.toString();
+    // change number format to a german number format
+    formatted = formatted.toLocaleString('de-De');
     if (isNotEmptyStr(units)) {
       formatted += ' ' + units;
     }

@@ -923,7 +923,9 @@ export abstract class ValueFormatProcessor {
     if (this.hideZeroDecimals) {
       formatted = Number(formatted);
     }
-    formatted = formatted.toString();
+    // formatted = formatted.toString();
+    // change number format to a german number format
+    formatted = formatted.toLocaleString('de-De');
     if (this.unitSymbol) {
       formatted += ` ${this.unitSymbol}`;
     }
