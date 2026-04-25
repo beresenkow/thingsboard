@@ -915,6 +915,7 @@ export abstract class ValueFormatProcessor {
 
   abstract format(value: any): string;
 
+  /*
   protected formatValue(value: number): string {
     let formatted: number | string = value;
     if (this.isDefinedDecimals) {
@@ -923,9 +924,20 @@ export abstract class ValueFormatProcessor {
     if (this.hideZeroDecimals) {
       formatted = Number(formatted);
     }
-    // formatted = formatted.toString();
-    // change number format to a german number format
-    formatted = formatted.toLocaleString('de-De');
+    formatted = formatted.toString();
+    if (this.unitSymbol) {
+      formatted += ` ${this.unitSymbol}`;
+    }
+    return formatted;
+  }
+  */
+
+  // use german value format and don't trim 0-decimals
+  protected formatValue(value: number): string {
+    let formatted = value.toLocaleString('de-De', {
+      minimumFractionDigits: this.settings.decimals,
+      maximumFractionDigits: this.settings.decimals,
+    });
     if (this.unitSymbol) {
       formatted += ` ${this.unitSymbol}`;
     }
