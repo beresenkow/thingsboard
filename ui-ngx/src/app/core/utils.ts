@@ -150,6 +150,7 @@ export const isFile = (obj: any): boolean => {
   return Object.prototype.toString.call(obj) === "[object File]";
 }
 
+/*
 export const formatValue = (value: any, dec?: number, units?: string, showZeroDecimals?: boolean): string | undefined => {
   if (isDefinedAndNotNull(value) && isNumeric(value) &&
     (isDefinedAndNotNull(dec) || isNotEmptyStr(units) || Number(value).toString() === value)) {
@@ -161,6 +162,24 @@ export const formatValue = (value: any, dec?: number, units?: string, showZeroDe
       formatted = (Number(formatted));
     }
     formatted = formatted.toString();
+    if (isNotEmptyStr(units)) {
+      formatted += ' ' + units;
+    }
+    return formatted;
+  } else {
+    return value !== null ? value : '';
+  }
+}
+*/
+
+// use german value format and don't trim 0-decimals
+export const formatValue = (value: any, dec?: number, units?: string, showZeroDecimals?: boolean): string | undefined => {
+  if (isDefinedAndNotNull(value) && isNumeric(value) &&
+    (isDefinedAndNotNull(dec) || isNotEmptyStr(units) || Number(value).toString() === value)) {
+    let formatted = Number(value).toLocaleString('de-DE', {
+      minimumFractionDigits: dec,
+      maximumFractionDigits: dec,
+    });
     if (isNotEmptyStr(units)) {
       formatted += ' ' + units;
     }
