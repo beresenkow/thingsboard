@@ -66,7 +66,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class DynamicFormSelectItemsComponent implements ControlValueAccessor, OnInit, Validator {
 
   @HostBinding('style.display') styleDisplay = 'flex';
-  @HostBinding('style.overflow') styleOverflow = 'hidden';
 
   @ViewChildren(DynamicFormSelectItemRowComponent)
   selectItemRows: QueryList<DynamicFormSelectItemRowComponent>;
@@ -173,10 +172,6 @@ export class DynamicFormSelectItemsComponent implements ControlValueAccessor, On
 
   selectItemsFormArray(): UntypedFormArray {
     return this.selectItemsFormGroup.get('selectItems') as UntypedFormArray;
-  }
-
-  trackBySelectItem(_index: number, selectItemControl: AbstractControl): any {
-    return selectItemControl;
   }
 
   removeSelectItem(index: number, emitEvent = true) {

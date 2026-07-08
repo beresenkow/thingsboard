@@ -94,6 +94,7 @@ import org.thingsboard.server.common.data.Tenant;
 import org.thingsboard.server.common.data.TenantProfile;
 import org.thingsboard.server.common.data.User;
 import org.thingsboard.server.common.data.asset.AssetProfile;
+import org.thingsboard.server.common.data.cf.AlarmRuleDefinition;
 import org.thingsboard.server.common.data.cf.CalculatedField;
 import org.thingsboard.server.common.data.cf.CalculatedFieldInfo;
 import org.thingsboard.server.common.data.cf.CalculatedFieldType;
@@ -228,6 +229,7 @@ public abstract class AbstractWebTest extends AbstractInMemoryStorageTest {
     protected static final String DIFFERENT_TENANT_ADMIN_PASSWORD = "difftenant";
 
     protected static final String CUSTOMER_USER_EMAIL = "testcustomer@thingsboard.org";
+    protected static final String SECOND_CUSTOMER_USER_EMAIL = "testsecondcustomer@thingsboard.org";
     private static final String CUSTOMER_USER_PASSWORD = "customer";
 
     protected static final String DIFFERENT_CUSTOMER_USER_EMAIL = "testdifferentcustomer@thingsboard.org";
@@ -267,6 +269,7 @@ public abstract class AbstractWebTest extends AbstractInMemoryStorageTest {
 
     protected CustomerId differentTenantCustomerId;
     protected UserId customerUserId;
+    protected UserId secondCustomerUserId;
     protected UserId differentCustomerUserId;
 
     protected UserId differentTenantCustomerUserId;
@@ -392,8 +395,16 @@ public abstract class AbstractWebTest extends AbstractInMemoryStorageTest {
         customerUser.setCustomerId(savedCustomer.getId());
         customerUser.setEmail(CUSTOMER_USER_EMAIL);
 
-        customerUser = createUserAndLogin(customerUser, CUSTOMER_USER_PASSWORD);
+        customerUser = createUserAndActivate(customerUser, CUSTOMER_USER_PASSWORD);
         customerUserId = customerUser.getId();
+
+        User secondCustomerUser = new User();
+        secondCustomerUser.setAuthority(Authority.CUSTOMER_USER);
+        secondCustomerUser.setTenantId(tenantId);
+        secondCustomerUser.setCustomerId(customerId);
+        secondCustomerUser.setEmail(SECOND_CUSTOMER_USER_EMAIL);
+        secondCustomerUser = createUserAndActivate(secondCustomerUser, CUSTOMER_USER_PASSWORD);
+        secondCustomerUserId = secondCustomerUser.getId();
 
         resetTokens();
 
@@ -491,6 +502,10 @@ public abstract class AbstractWebTest extends AbstractInMemoryStorageTest {
 
     protected void loginCustomerUser() throws Exception {
         login(CUSTOMER_USER_EMAIL, CUSTOMER_USER_PASSWORD);
+    }
+
+    protected void loginSecondCustomerUser() throws Exception {
+        login(SECOND_CUSTOMER_USER_EMAIL, CUSTOMER_USER_PASSWORD);
     }
 
     protected void loginUser(String userName, String password) throws Exception {
@@ -604,6 +619,13 @@ public abstract class AbstractWebTest extends AbstractInMemoryStorageTest {
         JsonNode activateRequest = getActivateRequest(password);
         JsonNode tokenInfo = readResponse(doPost("/api/noauth/activate", activateRequest).andExpect(status().isOk()), JsonNode.class);
         validateAndSetJwtToken(tokenInfo, user.getEmail());
+        return savedUser;
+    }
+
+    protected User createUserAndActivate(User user, String password) throws Exception {
+        User savedUser = doPost("/api/user", user, User.class);
+        JsonNode activateRequest = getActivateRequest(password);
+        doPost("/api/noauth/activate", activateRequest).andExpect(status().isOk());
         return savedUser;
     }
 
@@ -1357,7 +1379,7 @@ public abstract class AbstractWebTest extends AbstractInMemoryStorageTest {
 
     protected NotificationTarget createNotificationTarget(UsersFilter usersFilter) {
         NotificationTarget notificationTarget = new NotificationTarget();
-        notificationTarget.setName(usersFilter.toString() + RandomStringUtils.randomNumeric(5));
+        notificationTarget.setName(usersFilter.toString() + RandomStringUtils.secure().nextNumeric(5));
         PlatformUsersNotificationTargetConfig targetConfig = new PlatformUsersNotificationTargetConfig();
         targetConfig.setUsersFilter(usersFilter);
         notificationTarget.setConfiguration(targetConfig);
@@ -1480,6 +1502,10 @@ public abstract class AbstractWebTest extends AbstractInMemoryStorageTest {
 
     protected CalculatedField saveCalculatedField(CalculatedField calculatedField) {
         return doPost("/api/calculatedField", calculatedField, CalculatedField.class);
+    }
+
+    protected AlarmRuleDefinition saveAlarmRule(AlarmRuleDefinition alarmRule) {
+        return doPost("/api/alarm/rule", alarmRule, AlarmRuleDefinition.class);
     }
 
     protected PageData<CalculatedField> getEntityCalculatedFields(EntityId entityId, CalculatedFieldType type, PageLink pageLink) throws Exception {

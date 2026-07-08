@@ -16,44 +16,44 @@
 
 -->
 <div class="tb-details-buttons xs:flex xs:flex-col">
-  <button mat-raised-button color="primary"
+  <button mat-stroked-button color="primary"
           [disabled]="(isLoading$ | async)"
           (click)="onEntityAction($event, 'open')"
           [class.!hidden]="isEdit || isDetailsPage">
     {{'common.open-details-page' | translate }}
   </button>
-  <button mat-raised-button color="primary"
+  <button mat-stroked-button color="primary"
           [disabled]="(isLoading$ | async)"
           (click)="onEntityAction($event, 'makePublic')"
           [class.!hidden]="isEdit || entityViewScope !== 'tenant' || isAssignedToCustomer(entity) || entity?.customerIsPublic">
     {{'entity-view.make-public' | translate }}
   </button>
-  <button mat-raised-button color="primary"
+  <button mat-stroked-button color="primary"
           [disabled]="(isLoading$ | async)"
           (click)="onEntityAction($event, 'assignToCustomer')"
           [class.!hidden]="isEdit || entityViewScope !== 'tenant' || isAssignedToCustomer(entity)">
     {{'entity-view.assign-to-customer' | translate }}
   </button>
-  <button mat-raised-button color="primary"
+  <button mat-stroked-button color="primary"
           [disabled]="(isLoading$ | async)"
           (click)="onEntityAction($event, 'unassignFromCustomer')"
           [class.!hidden]="isEdit || (entityViewScope !== 'customer' && entityViewScope !== 'tenant') || !isAssignedToCustomer(entity)">
     {{ (entity?.customerIsPublic ? 'entity-view.make-private' : 'entity-view.unassign-from-customer') | translate }}
   </button>
-  <button mat-raised-button color="primary"
+  <button mat-stroked-button color="primary"
           [disabled]="(isLoading$ | async)"
           (click)="onEntityAction($event, 'unassignFromEdge')"
           [class.!hidden]="isEdit || entityViewScope !== 'edge'">
     {{ 'edge.unassign-from-edge' | translate }}
   </button>
-  <button mat-raised-button color="primary"
+  <button mat-stroked-button color="primary"
           [disabled]="(isLoading$ | async)"
           (click)="onEntityAction($event, 'delete')"
           [class.!hidden]="hideDelete() || isEdit">
     {{'entity-view.delete' | translate }}
   </button>
   <div class="flex flex-row xs:flex-col">
-    <button mat-raised-button
+    <button mat-stroked-button
             ngxClipboard
             (cbOnSuccess)="onEntityViewIdCopied($event)"
             [cbContent]="entity?.id?.id"
@@ -110,27 +110,24 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div translate class="tb-hint">entity-view.attributes-propagation-hint</div>
-            <label translate class="tb-title no-padding">entity-view.client-attributes</label>
             <tb-entity-keys-list
               [entityId]="selectedEntityId | async"
               formControlName="cs"
-              keysText="entity-view.client-attributes-placeholder"
+              label="entity-view.client-attributes"
               [dataKeyType]="dataKeyType.attribute"
               appearance="outline">
             </tb-entity-keys-list>
-            <label translate class="tb-title no-padding">entity-view.shared-attributes</label>
             <tb-entity-keys-list
               [entityId]="selectedEntityId | async"
               formControlName="sh"
-              keysText="entity-view.shared-attributes-placeholder"
+              label="entity-view.shared-attributes"
               [dataKeyType]="dataKeyType.attribute"
               appearance="outline">
             </tb-entity-keys-list>
-            <label translate class="tb-title no-padding">entity-view.server-attributes</label>
             <tb-entity-keys-list
               [entityId]="selectedEntityId | async"
               formControlName="ss"
-              keysText="entity-view.server-attributes-placeholder"
+              label="entity-view.server-attributes"
               [dataKeyType]="dataKeyType.attribute"
               appearance="outline">
             </tb-entity-keys-list>
@@ -142,11 +139,10 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div translate class="tb-hint">entity-view.timeseries-data-hint</div>
-            <label translate class="tb-title no-padding">entity-view.timeseries</label>
             <tb-entity-keys-list
               [entityId]="selectedEntityId | async"
               formControlName="timeseries"
-              keysText="entity-view.timeseries-placeholder"
+              label="entity-view.timeseries"
               [dataKeyType]="dataKeyType.timeseries"
               appearance="outline">
             </tb-entity-keys-list>
