@@ -667,8 +667,14 @@ class GradientColorProcessor extends AdvancedModeColorProcessor {
   }
 }
 
+/*
 export type FormatTimeUnit = 'millisecond' | 'second' | 'minute' | 'hour'
   | 'day' | 'month' | 'year';
+*/
+
+// Change date fromat to german date format
+export type FormatTimeUnit = 'millisecond' | 'second' | 'minute' | 'hour'
+  | 'month' | 'day' | 'year';
 
 
 export const formatTimeUnits: FormatTimeUnit[] = [
@@ -721,12 +727,25 @@ export const customDateFormat = (format: string): DateFormatSettings => ({
   auto: false
 });
 
+/*
 export const defaultAutoDateFormatSettings: AutoDateFormatSettings = {
   millisecond: 'MMM dd yyyy HH:mm:ss.SSS',
   second: 'MMM dd yyyy HH:mm:ss',
   minute: 'MMM dd yyyy HH:mm',
   hour: 'MMM dd yyyy HH:mm',
   day: 'MMM dd yyyy',
+  month: 'MMM yyyy',
+  year: 'yyyy'
+};
+*/
+
+// Change date fromats to german date formats
+export const defaultAutoDateFormatSettings: AutoDateFormatSettings = {
+  millisecond: 'dd MMM yyyy HH:mm:ss.SSS',
+  second: 'dd MMM yyyy HH:mm:ss',
+  minute: 'dd MMM yyyy HH:mm',
+  hour: 'dd MMM yyyy HH:mm',
+  day: 'dd MMM yyyy',
   month: 'MMM yyyy',
   year: 'yyyy'
 };
@@ -739,10 +758,17 @@ export const autoDateFormat = (): DateFormatSettings => ({
   autoDateFormatSettings: {}
 });
 
+/*
 export const dateFormats = ['MMM yyyy', 'MMM dd yyyy', 'MMM dd yyyy HH:mm', 'dd MMM yyyy HH:mm', 'dd MMM yyyy HH:mm:ss',
   'yyyy MMM dd HH:mm', 'MM/dd/yyyy HH:mm', 'dd/MM/yyyy HH:mm', 'MMM dd yyyy HH:mm:ss', 'yyyy/MM/dd HH:mm:ss', 'yyyy-MM-dd HH:mm:ss',
   'MMM dd yyyy HH:mm:ss.SSS', 'yyyy-MM-dd HH:mm:ss.SSS']
   .map(f => simpleDateFormat(f)).concat([lastUpdateAgoDateFormat(), customDateFormat('EEE, MMMM dd, yyyy')]);
+*/
+
+// Change date fromats to german date formats
+export const dateFormats = ['dd.MM.yyyy', 'MMM yyyy', 'dd MMM yyyy', 'dd MMM yyyy HH:mm', 'dd MMM yyyy HH:mm:ss',
+  'yyyy-MM-dd HH:mm:ss', 'dd MMM yyyy HH:mm:ss.SSS', 'yyyy-MM-dd HH:mm:ss.SSS']
+  .map(f => simpleDateFormat(f)).concat([lastUpdateAgoDateFormat(), customDateFormat('EEE, dd. MMMM yyyy')]);
 
 export const dateFormatsWithAuto = [autoDateFormat()].concat(dateFormats);
 
@@ -891,6 +917,7 @@ export abstract class ValueFormatProcessor {
 
   abstract format(value: any): string;
 
+  /*
   protected formatValue(value: number): string {
     let formatted: number | string = value;
     if (this.isDefinedDecimals) {
@@ -900,6 +927,19 @@ export abstract class ValueFormatProcessor {
       formatted = Number(formatted);
     }
     formatted = formatted.toString();
+    if (this.unitSymbol) {
+      formatted += ` ${this.unitSymbol}`;
+    }
+    return formatted;
+  }
+  */
+
+  // use german value format and don't trim 0-decimals
+  protected formatValue(value: number): string {
+    let formatted = value.toLocaleString('de-De', {
+      minimumFractionDigits: this.settings.decimals,
+      maximumFractionDigits: this.settings.decimals,
+    });
     if (this.unitSymbol) {
       formatted += ` ${this.unitSymbol}`;
     }
